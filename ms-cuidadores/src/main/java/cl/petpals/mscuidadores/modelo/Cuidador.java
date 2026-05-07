@@ -47,8 +47,11 @@ public class Cuidador {
     private int telefono;
 
     @Column(nullable = false, length = 254, unique = true)
-    private String correoElectronico;
+    private String email;
 
     @Column(nullable = false, length = 2)
     private int edad;
+
+    @Column(nullable = false)
+    private boolean disponibilidad = true;
 }

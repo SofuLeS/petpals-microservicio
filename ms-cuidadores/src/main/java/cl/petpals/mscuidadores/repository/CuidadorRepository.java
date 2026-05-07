@@ -3,11 +3,26 @@ package cl.petpals.mscuidadores.repository;
 import cl.petpals.mscuidadores.modelo.Cuidador;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-//<> se llamanf genericos, JPA es una maquina generica que springbot creo, y esta nio sabe que es lo qye tu
-//tienes que guardar, por eso hay que pasarle dos parametros para saber que es lo que tu quieres guardar
-//El primer parametro le esta dicendo que es lo que va a manejar
-//
+import java.util.List;
+
+/**
+ *Al hacer el que la interfas hereded de JpaRepo, spring te regala automaticamente los metodos
+ * basico
+ * Cuidaror esta representa la entidad donde va a trabajar  y
+ * Long esta referenciando a la id
+ * */
 public interface CuidadorRepository extends JpaRepository<Cuidador, Long> {
+//En springDataJpa tu no escribes las consultas el nombre del metodo ES la consula
+
+    //Buscar por nombres
+    //Containig: Buscara el nombre sin importar donde esta o si esta incompleto
+    //IgnoreCase: Buscara el nombre sin discrimanar por mayusculas o minusculas
+    //Aqui no se usa overr.. pq es una consulta no es algo que se tiene que reescrivir
+    List<Cuidador> findByNombreContainingIgnoreCase(String nombre);
+
+    List<Cuidador> findByApellidosContainingIgnoreCase(String apellidos);
+
+    List<Cuidador> findByNombreContainingIgonoreCase(String nombre);
 
 
 }

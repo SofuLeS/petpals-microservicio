@@ -44,9 +44,11 @@ public class Cuidador {
     private String apellidos;
 
     @Column(nullable = false, length = 11, unique = true)
-    private String telefono;
+    private int telefono;
 
     @Column(nullable = false, length = 254, unique = true)
     private String correoElectronico;
 
+    @Column(nullable = false, length = 2)
+    private int edad;
 }

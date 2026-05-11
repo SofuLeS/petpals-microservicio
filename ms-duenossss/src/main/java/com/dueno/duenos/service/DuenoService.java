@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 public class DuenoService {
     private final DuenoRepository duenoRepository;
 
-
+    //Creamos un metodo para transformar el objeto Dueno a DuenoResponse
     private DuenoResponse mapToDTO(Dueno dueno){
-        return new DuenoResponse(
+        return new DuenoResponse( // aqui estamos retornando el DuenoResponse
                 dueno.getId(),
                 dueno.getRut(),
                 dueno.getNombres(),
@@ -29,9 +29,12 @@ public class DuenoService {
         );
     }
 
+    //Metodo de tipo DuenoResponse que debe retornar el mismo tipo DuenoResponse
+    //Sin embargo, el metodo en el Repository recibe por parametro objeto tipo Dueno
     public DuenoResponse guardar(DuenoRequest dto){
 
-        Dueno dueno = new Dueno(
+       //Aqui preparamos el objeto tipo Dueno para mandarselo al repository
+        Dueno dueno = new Dueno( //Nuevo Objeto creado
                 null,
                 dto.getRut(),
                 dto.getNombres(),
@@ -40,7 +43,12 @@ public class DuenoService {
                 dto.getCorreo(),
                 dto.getDireccion()
         );
-        return  mapToDTO(duenoRepository.save(dueno));
+        //Fin preparacion
+
+        //Como el return debe ser de tipo DuenoResponse, utilizamos el metodo mapToDTO para
+        //Transformar el nuevo objeto creado de tipo Dueno a DuenoResponse para que el return
+        //no arroje error "Requiere DuenoResponse"
+        return  mapToDTO(duenoRepository.save(dueno));//Repository recibe tipo Dueno
     }
 
     public List<DuenoResponse> mostrarTodos(){
@@ -59,5 +67,44 @@ public class DuenoService {
     }
 
 
+    public Optional<DuenoResponse> actualizar(Long id, DuenoRequest dto){
+        return  duenoRepository.findById(id).map( existente ->
+        {
+            existente.setRut(dto.getRut());
+            existente.setNombres(dto.getNombres());
+            existente.setApellidos(dto.getApellidos());
+            existente.setTelefono(dto.getTelefono());
+            existente.setCorreo(dto.getCorreo());
+            existente.setDireccion(dto.getDireccion());
+            return mapToDTO(duenoRepository.save(existente));
+        });
+    }
+
+
+    public Optional<DuenoResponse> actualizarCampo(Long id, DuenoRequest dto){
+            return duenoRepository.findById(id).map( existente ->
+             {
+                 if (dto.getRut() != null){
+                     existente.setRut(dto.getRut());
+                 }
+                 if (dto.getNombres() != null){
+                     existente.setNombres(dto.getNombres());
+                 }
+                 if (dto.getApellidos() != null){
+                     existente.setApellidos(dto.getApellidos());
+                 }
+                 if (dto.getTelefono() != null){
+                     existente.setTelefono(dto.getTelefono());
+                 }
+                 if (dto.getCorreo() != null){
+                     existente.setCorreo(dto.getCorreo());
+                 }
+                 if (dto.getDireccion() != null){
+                     existente.setDireccion(dto.getDireccion());
+                 }
+                 return mapToDTO(duenoRepository.save(existente));
+
+                    });
+    }
 
 }

@@ -45,4 +45,23 @@ public class DuenoController {
         duenoService.eliminar(id);
         return ResponseEntity.noContent().build(); //204
     }
+    @PutMapping("{id}")
+    public ResponseEntity<DuenoResponse> actualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody DuenoRequest dto){
+        return duenoService.actualizar(id,dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @PatchMapping("{id}")
+    public ResponseEntity<DuenoResponse> actualizarCampo(
+            @PathVariable Long id,
+            @RequestBody DuenoRequest dto){
+        return duenoService.actualizarCampo(id,dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
+
 }

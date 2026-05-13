@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CuidadorService {
-    //Nesario para buscar la ca
+    //Nesario para buscar la cat
     private final CategoriaRepository categoriaRepository;
     private final CuidadorRepository cuidadorRepository;
 
@@ -56,6 +56,11 @@ public class CuidadorService {
     public List<CuidadorResponseDto> listarDisponibles(){
         return cuidadorRepository.findByDisponibilidadTrue().stream()
                 .map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    //Buscar por nombre
+    public List<CuidadorResponseDto> buscarPorNombre(String nombre){
+        return cuidadorRepository.findByNombreContainingIgnoreCase(nombre).stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
     //Guardars

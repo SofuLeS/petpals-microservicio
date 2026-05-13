@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 //Permite dejar de maner explicita el nombre de la tabla
 @Table(name = "cuidadores")
 public class Cuidador {
-    //Este esta definiendo la primary Keys
+    //Este esta definiendo la primaary Keys
     @Id
     //Esta diciendo como se asigna un valor, y lo siguente esta hecho para que la base de dato lo incremente
     @GeneratedValue(strategy = GenerationType.IDENTITY)

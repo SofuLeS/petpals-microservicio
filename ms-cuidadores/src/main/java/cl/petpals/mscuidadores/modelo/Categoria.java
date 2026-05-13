@@ -2,9 +2,13 @@ package cl.petpals.mscuidadores.modelo;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "categorias")
 public class Categoria {
@@ -16,8 +20,6 @@ public class Categoria {
     @Column(nullable = false, length = 100)
     private String nombre;
 
-    //Muchos cuidadores pertenecen a uno
-    @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private Categoria categoria;
+    @Column(nullable = false, length = 250)
+    private String descripcion;
 }

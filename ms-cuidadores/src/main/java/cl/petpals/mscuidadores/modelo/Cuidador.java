@@ -54,4 +54,8 @@ public class Cuidador {
 
     @Column(nullable = false)
     private boolean disponibilidad = true;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
 }

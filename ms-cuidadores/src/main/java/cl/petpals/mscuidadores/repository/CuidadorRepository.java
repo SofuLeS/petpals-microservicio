@@ -24,11 +24,15 @@ public interface CuidadorRepository extends JpaRepository<Cuidador, Long> {
 
     //No ocupa variable pq el criterio dee busqueda ya esta explicito en en el nombre
     List<Cuidador> findByDisponibilidadTrue();
+    List<Cuidador> findByCategoriaNombreContainingIgnoreCase(String categoriaPet);
+    List<Cuidador> findByCategoriaId(Long categoriaId);
 
     Optional<Cuidador> findByRut(String rut);
     Optional<Cuidador> findByEmail(String email);
 
     boolean existsByRut(String rut);
     boolean existsByEmail(String email);
+
+
 
 }

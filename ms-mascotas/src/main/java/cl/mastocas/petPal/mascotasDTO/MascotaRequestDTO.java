@@ -1,4 +1,4 @@
-package cl.mastocas.petPal.MascotasDTO;
+package cl.mastocas.petPal.mascotasDTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +30,7 @@ public class MascotaRequestDTO {
     private String alergias; // Este lo vamos hacer opcional.
 
     @NotBlank(message = "El tipo de Mascotas debe ser obligatorio")
-    private String TipoMascotas;
+    private String TipoMascota;
 
     @NotNull(message = "El id del dueño es obligatorio.")
     private Long idDueno;

@@ -1,4 +1,4 @@
-package cl.mastocas.petPal.MascotasModel;
+package cl.mastocas.petPal.mascotasModel;
 
 
 import jakarta.persistence.*;

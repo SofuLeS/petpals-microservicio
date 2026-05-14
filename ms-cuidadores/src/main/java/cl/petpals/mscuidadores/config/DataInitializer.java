@@ -25,10 +25,10 @@ public class DataInitializer implements CommandLineRunner {
         log.info(">>> PetPals: Insertando datos de prueba iniciales...");
 
         //Crear Categorias
-        Categoria perroGrande = categoriaRepository.save(new Categoria(null, "Perro Grande", "Cuidado de razas grandes"));
-        Categoria gatos = categoriaRepository.save(new Categoria(null,"Gatos","Cuidado de felinos domesticos" ));
-        Categoria perros = categoriaRepository.save(new Categoria(null, "Perro","Cuidado de caninos domesticos"));
-        Categoria exoticos = categoriaRepository.save(new Categoria(null,"Exoticos","Cuidado de animales exoticos"));
+        Categoria perroGrande = categoriaRepository.save(new Categoria(null, "Perros Grande", "Cuidado de razas grandes"));
+        Categoria gato = categoriaRepository.save(new Categoria(null,"Gatos","Cuidado de felinos domesticos" ));
+        Categoria perro = categoriaRepository.save(new Categoria(null, "Perros","Cuidado de caninos domesticos"));
+        Categoria exotico = categoriaRepository.save(new Categoria(null,"Exoticos","Cuidado de animales exoticos"));
 
         log.info(">>> PetPals: Datos cargados con exito!! ({} categoria,{} cuidadores)",categoriaRepository.count(),cuidadorRepository.count());
 

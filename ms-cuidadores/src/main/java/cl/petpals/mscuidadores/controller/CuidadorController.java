@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestControllerAdvice
+@RestController
 @RequestMapping("/api/cuidadores")
 @RequiredArgsConstructor
 public class CuidadorController {
@@ -41,7 +41,7 @@ public class CuidadorController {
         return cuidadorService.actualizar(id,dto).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{api}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id){
         if (cuidadorService.obtenerPorId(id).isEmpty()){
             return ResponseEntity.notFound().build();

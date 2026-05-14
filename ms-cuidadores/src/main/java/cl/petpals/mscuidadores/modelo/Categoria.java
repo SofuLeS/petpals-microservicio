@@ -20,6 +20,6 @@ public class Categoria {
     @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(nullable = true, length = 250)
+    @Column(name = "descripcion", nullable = true, length = 250)
     private String descripcion;
 }

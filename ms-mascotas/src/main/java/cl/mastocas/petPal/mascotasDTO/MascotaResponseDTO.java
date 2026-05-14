@@ -1,4 +1,4 @@
-package cl.mastocas.petPal.MascotasDTO;
+package cl.mastocas.petPal.mascotasDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,7 @@ public class MascotaResponseDTO {
     private String raza;
     private Integer edad;
     private String alergias;
-    private String TipoMascotas;
+    private String TipoMascota;
 
     // Aqui la relacion
     private Long idDueno;

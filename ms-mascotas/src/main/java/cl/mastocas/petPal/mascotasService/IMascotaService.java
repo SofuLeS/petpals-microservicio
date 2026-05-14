@@ -1,7 +1,7 @@
-package cl.mastocas.petPal.MascotasService;
+package cl.mastocas.petPal.mascotasService;
 
-import cl.mastocas.petPal.MascotasDTO.MascotaRequestDTO;
-import cl.mastocas.petPal.MascotasDTO.MascotaResponseDTO;
+import cl.mastocas.petPal.mascotasDTO.MascotaRequestDTO;
+import cl.mastocas.petPal.mascotasDTO.MascotaResponseDTO;
 import java.util.List;
 import java.util.Optional;
 

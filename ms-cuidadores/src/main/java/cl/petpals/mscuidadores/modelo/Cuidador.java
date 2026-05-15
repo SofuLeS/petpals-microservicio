@@ -55,6 +55,12 @@ public class Cuidador {
     @Column(nullable = false)
     private boolean disponibilidad = true;
 
+    @Column(name = "calificacion", precision = 3, scale = 2)
+    private Double calificacion;
+
+    @Column(name = "anos_experiencia")
+    private Integer anosE;
+
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;

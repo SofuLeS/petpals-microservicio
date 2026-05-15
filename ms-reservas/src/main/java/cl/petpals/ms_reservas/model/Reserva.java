@@ -33,7 +33,7 @@ public class Reserva {
     @Column(nullable = false)
     private LocalDateTime fechaReserva;
 
-    @Column(length = 250)
-    private String estado;
-
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EstadoReserva estadoReserva;
 }

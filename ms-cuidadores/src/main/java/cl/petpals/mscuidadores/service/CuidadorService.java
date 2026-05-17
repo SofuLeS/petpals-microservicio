@@ -31,7 +31,10 @@ public class CuidadorService {
                 cuidador.getEmail(),
                 cuidador.getEdad(),
                 cuidador.getCategoria().getNombre(),
-                cuidador.isDisponibilidad()
+                cuidador.getAnosExperincia(),
+                cuidador.getMascotasCuidadas(),
+                cuidador.isDisponibilidad(),
+                cuidador.getCalificacion()
         );
     }
 
@@ -63,6 +66,16 @@ public class CuidadorService {
         return cuidadorRepository.findByNombreContainingIgnoreCase(nombre).stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
+    //Buscar por mascotas cuidadas
+    public List<CuidadorResponseDto> buscarPorMascotasCuidadas(Integer cantidad){
+        return cuidadorRepository.findByMascotasCuidadasGreaterThanEqual(cantidad).stream().map(this::mapToDto).toList();
+    }
+
+    //Buscar por años de experiencia
+    public List<CuidadorResponseDto> buscarPorAniosExperincia(Integer anos){
+        return cuidadorRepository.findByAnosExperinciaGreaterThanEqual(anos).stream().map(this::mapToDto).toList();
+    }
+
     //Guardars
     public  CuidadorResponseDto guardar(CuidadorRequestDto dto){
         Categoria categoria = categoriaRepository.findById(dto.getCategoriaId())
@@ -74,8 +87,12 @@ public class CuidadorService {
         cuidador.setApellidos(dto.getApellidos());
         cuidador.setTelefono(dto.getTelefono());
         cuidador.setEmail(dto.getEmail());
+        cuidador.setEdad(dto.getEdad());
         cuidador.setDisponibilidad(dto.getDisponibilidad());
         cuidador.setCategoria(categoria);
+        cuidador.setAnosExperincia(dto.getAnosExperincia());
+        cuidador.setMascotasCuidadas(dto.getMascotasCuidadas());
+        cuidador.setCalificacion(null);
 
         return mapToDto(cuidadorRepository.save(cuidador));
     }
@@ -98,6 +115,9 @@ public class CuidadorService {
             existente.setEdad(dto.getEdad());
             existente.setDisponibilidad(dto.getDisponibilidad());
             existente.setCategoria(categoria);
+            existente.setAnosExperincia(dto.getAnosExperincia());
+            existente.setMascotasCuidadas(dto.getMascotasCuidadas());
+            existente.setCalificacion(null);
             return mapToDto(cuidadorRepository.save(existente));
         });
     }

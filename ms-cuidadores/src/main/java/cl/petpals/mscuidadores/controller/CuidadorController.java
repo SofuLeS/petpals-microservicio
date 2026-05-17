@@ -68,4 +68,16 @@ public class CuidadorController {
         return ResponseEntity.ok(cuidadorService.listarDisponibles());
     }
 
+    //Buscar por mascotas cuidadas
+    @GetMapping("/mascotas-cuidadas")
+    public ResponseEntity<List<CuidadorResponseDto>> buscarPorMascotasCuidadas(@RequestParam Integer cantidad){
+        return ResponseEntity.ok(cuidadorService.buscarPorMascotasCuidadas(cantidad));
+    }
+
+    //Buscar por experiencia
+    @GetMapping("/experiencia")
+    public ResponseEntity<List<CuidadorResponseDto>> buscarPorExperiencia(@RequestParam Integer anos){
+        return ResponseEntity.ok(cuidadorService.buscarPorAniosExperincia(anos));
+    }
+
 }

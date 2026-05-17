@@ -35,6 +35,12 @@ public class CuidadorRequestDto {
     @NotNull(message = "La id no puede ir vacia")
     private Long categoriaId;
 
+    @Positive(message = "La edad no puede ser negativa")
+    private Integer anosExperincia;
+
+    @Positive(message = "Las mascotas cuidadas no pueden ser negativas")
+    private Integer mascotasCuidadas;
+
     @NotNull(message = "La disponibilidad no puede ir vacia")
     private Boolean disponibilidad;
 }

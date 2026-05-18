@@ -1,7 +1,6 @@
 package com.historial_petpals.service;
 
-import com.historial_petpals.dto.HistorialRequest;
-import com.historial_petpals.dto.HistorialResponse;
+import com.historial_petpals.dto.*;
 import com.historial_petpals.model.Historial;
 import com.historial_petpals.repository.HistorialRepo;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +15,11 @@ public class HistorialService {
     private final HistorialRepo historialRepo;
     private final WebClient.Builder webClientBuilder;
 
+
     @Value("${ms.cuidadores.url}")
     private String cuidadoresUrl;
 
-    /*
+
     private CuidadorResponseDto obtenerCuidador(Long idCuidador){
         return webClientBuilder
                 .baseUrl(cuidadoresUrl)
@@ -40,21 +40,36 @@ public class HistorialService {
                 .bodyToMono(MascotaResponseDTO.class)
                 .block();
     }
-    @Value("${ms.dueño.url}")
+    @Value("${ms.dueno.url}")
     private String duenoUrl;
     private DuenoResponse obtenerDueno(Long idDueno){
         return webClientBuilder.baseUrl(duenoUrl).build()
                 .get().uri("/api/dueno" + idDueno).retrieve()
                 .bodyToMono(DuenoResponse.class).block();
     }
-    */
+
+    @Value("${ms.reserva.url}")
+    private String reservaUrl;
+    private ReservaResponse obtenerReserva(Long idReserva){
+        return webClientBuilder.baseUrl(reservaUrl).build()
+                .get().uri("/api/reserva" + idReserva).retrieve()
+                .bodyToMono(ReservaResponse.class).block();
+    }
+
+    @Value("${ms.servicio.url}")
+    private String servicioUrl;
+    private ServicioResponse obtenerServicio(Long idServicio){
+        return webClientBuilder.baseUrl(servicioUrl).build()
+                .get().uri("/api/servicio" + idServicio).retrieve()
+                .bodyToMono(ServicioResponse.class).block();
+    }
 
 
     public HistorialResponse mapToDTO(Historial historial){
         return new HistorialResponse(
                 historial.getId(),
                 historial.getIdReservas(),
-                historial.getIdDueño(),
+                historial.getIdDueno(),
                 historial.getIdCuidador(),
                 historial.getIdMascota(),
                 historial.getIdServicio()
@@ -66,7 +81,7 @@ public class HistorialService {
         Historial historial = new Historial(
                 null,
                 dto.getIdReservas(),
-                dto.getIdDueño(),
+                dto.getIdDueno(),
                 dto.getIdCuidador(),
                 dto.getIdMascota(),
                 dto.getIdServicio()

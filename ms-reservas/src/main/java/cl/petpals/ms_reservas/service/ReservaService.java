@@ -45,11 +45,13 @@ public class ReservaService {
             throw new RuntimeException("El cuidador con id" + dto.getIdCuidador() + " no existe");
         }
         Reserva reserva = new Reserva();
+        reserva.setId(dto.getIdServicio());
         reserva.setIdDueno(dto.getIdDueno());
         reserva.setIdMascota(dto.getIdMascota());
         reserva.setIdCuidador(dto.getIdCuidador());
         reserva.setIdServicio(dto.getIdServicio());
         reserva.setFechaReserva(dto.getFechaReserva());
+        reserva.setFechaFinReserva(dto.getFechaFinReserva());
         reserva.setEstadoReserva(EstadoReserva.PENDIENTE);
 
         historialAsyncService.enviarHistorial(reserva);

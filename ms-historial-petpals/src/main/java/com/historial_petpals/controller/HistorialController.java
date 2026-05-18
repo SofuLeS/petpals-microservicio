@@ -22,6 +22,7 @@ public class HistorialController {
 
     @PostMapping
     public ResponseEntity<HistorialResponse> guardar(@Valid @RequestBody HistorialRequest dto){
+        System.out.print("Entrando controller historial");
         return ResponseEntity.status(201).body(historialService.guardar(dto));
     }
 

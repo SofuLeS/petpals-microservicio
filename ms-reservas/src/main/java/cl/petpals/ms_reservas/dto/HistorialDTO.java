@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class HistorialDTO {
     private Long idReservas;
-    private Long idDueño;
+    private Long idDueno;
     private Long idCuidador;
     private Long idMascota;
     private Long idServicio;
@@ -28,11 +28,11 @@ public class HistorialDTO {
     }
 
     public Long getIdDueño() {
-        return idDueño;
+        return idDueno;
     }
 
     public void setIdDueño(Long idDueño) {
-        this.idDueño = idDueño;
+        this.idDueno = idDueno;
     }
 
     public Long getIdCuidador() {

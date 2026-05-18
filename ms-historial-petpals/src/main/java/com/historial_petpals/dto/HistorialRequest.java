@@ -14,7 +14,7 @@ public class HistorialRequest {
     private Long idReservas;
 
     @NotNull(message = "El ID dueño es obligatorio")
-    private Long idDueño;
+    private Integer idDueno;
 
     @NotNull(message = "EL id de cuidador es obligatorio")
     private Long idCuidador;

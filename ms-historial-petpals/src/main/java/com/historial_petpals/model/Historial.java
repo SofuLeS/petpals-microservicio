@@ -20,7 +20,7 @@ public class Historial {
     private Long idReservas;
 
     @Column(nullable = false)
-    private Long idDueño;
+    private Integer idDueno;
 
     @Column(nullable = false)
     private Long idCuidador;

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface HistorialRepo extends JpaRepository<Historial, Long> {
-    List<Historial> findByIdDueno(Long idDueno);
+    List<Historial> findByIdDueno(Integer idDueno);
     List<Historial> findByIdCuidador(Long idCuidador);
     List<Historial> findByIdMascota(Long idMascota);
     List<Historial> findByIdServicio(Long idServicio);

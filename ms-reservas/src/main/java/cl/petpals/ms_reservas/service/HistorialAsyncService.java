@@ -21,9 +21,10 @@ public class HistorialAsyncService {
     @Async
     public void enviarHistorial(Reserva reserva){
         try {
+            System.out.print("Mandando informacion");
             HistorialDTO dto = new HistorialDTO();
             dto.setIdReservas(reserva.getId());
-            dto.setIdDueño(reserva.getIdDueno());
+            dto.setIdDueno(reserva.getIdDueno());
             dto.setIdCuidador(reserva.getIdCuidador());
             dto.setIdMascota(reserva.getIdMascota());
             dto.setIdServicio(reserva.getIdServicio());

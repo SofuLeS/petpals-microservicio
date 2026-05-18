@@ -20,9 +20,12 @@ public class ReservaService {
 
     private final ReservaRepository reservaRepository;
     private final WebClient.Builder webClientBuilder;
+    private final HistorialAsyncService historialAsyncService;
 
     @Value("${ms.cuidadores.url}")
     private String cuidadoresUrl;
+
+
 
     private CuidadorResponseDto obtenerCuidador(Long idCuidador){
         return webClientBuilder
@@ -34,6 +37,7 @@ public class ReservaService {
                 .bodyToMono(CuidadorResponseDto.class)
                 .block();
     }
+
 
     public ReservaResponseDto guardar(ReservaRequestDto dto){
         CuidadorResponseDto cuidador = obtenerCuidador(dto.getIdCuidador());
@@ -47,6 +51,9 @@ public class ReservaService {
         reserva.setIdServicio(dto.getIdServicio());
         reserva.setFechaReserva(dto.getFechaReserva());
         reserva.setEstadoReserva(EstadoReserva.PENDIENTE);
+
+        historialAsyncService.enviarHistorial(reserva);
+
         return mapToDto(reservaRepository.save(reserva));
     }
 

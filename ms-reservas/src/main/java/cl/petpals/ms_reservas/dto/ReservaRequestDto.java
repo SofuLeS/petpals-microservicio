@@ -29,4 +29,8 @@ public class ReservaRequestDto {
     @FutureOrPresent(message = "La fecha no puede estar en pasado")
     private LocalDateTime fechaReserva;
 
+    @NotNull(message = "La fecha de finalizacion obligatoria")
+    @FutureOrPresent(message = "La fecha no puede estar en pasado")
+    private LocalDateTime fechaFinReserva;
+
 }

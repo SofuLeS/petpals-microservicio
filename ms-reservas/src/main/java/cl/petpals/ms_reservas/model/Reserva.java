@@ -34,6 +34,9 @@ public class Reserva {
     private LocalDateTime fechaReserva;
 
     @Column(nullable = false)
+    private LocalDateTime fechaFinReserva;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EstadoReserva estadoReserva;
 }

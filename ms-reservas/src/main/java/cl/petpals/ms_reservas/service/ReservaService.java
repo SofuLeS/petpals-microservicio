@@ -58,6 +58,7 @@ public class ReservaService {
                 reserva.getIdCuidador(),
                 reserva.getIdServicio(),
                 reserva.getFechaReserva(),
+                reserva.getFechaFinReserva(),
                 reserva.getEstadoReserva()
         );
     }

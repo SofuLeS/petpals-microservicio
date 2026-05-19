@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class HistorialService {
@@ -20,7 +24,7 @@ public class HistorialService {
     private String cuidadoresUrl;
 
 
-    private CuidadorResponseDto obtenerCuidador(Long idCuidador){
+    private CuidadorResponseDto obtenerCuidador(Long idCuidador) {
         return webClientBuilder
                 .baseUrl(cuidadoresUrl)
                 .build().get()
@@ -33,16 +37,18 @@ public class HistorialService {
     @Value("${ms.mascotas.url}")
     private String mascotasUrl;
 
-    private MascotaResponseDTO obtenerMascota(Long idMascota){
+    private MascotaResponseDTO obtenerMascota(Long idMascota) {
         return webClientBuilder.baseUrl(mascotasUrl).build()
                 .get().uri("/api/mascotas/" + idMascota)
                 .retrieve()
                 .bodyToMono(MascotaResponseDTO.class)
                 .block();
     }
+
     @Value("${ms.dueno.url}")
     private String duenoUrl;
-    private DuenoResponse obtenerDueno(Long idDueno){
+
+    private DuenoResponse obtenerDueno(Long idDueno) {
         return webClientBuilder.baseUrl(duenoUrl).build()
                 .get().uri("/api/dueno" + idDueno).retrieve()
                 .bodyToMono(DuenoResponse.class).block();
@@ -50,7 +56,8 @@ public class HistorialService {
 
     @Value("${ms.reserva.url}")
     private String reservaUrl;
-    private ReservaResponse obtenerReserva(Long idReserva){
+
+    private ReservaResponse obtenerReserva(Long idReserva) {
         return webClientBuilder.baseUrl(reservaUrl).build()
                 .get().uri("/api/reserva" + idReserva).retrieve()
                 .bodyToMono(ReservaResponse.class).block();
@@ -58,14 +65,15 @@ public class HistorialService {
 
     @Value("${ms.servicio.url}")
     private String servicioUrl;
-    private ServicioResponse obtenerServicio(Long idServicio){
+
+    private ServicioResponse obtenerServicio(Long idServicio) {
         return webClientBuilder.baseUrl(servicioUrl).build()
                 .get().uri("/api/servicio" + idServicio).retrieve()
                 .bodyToMono(ServicioResponse.class).block();
     }
 
 
-    public HistorialResponse mapToDTO(Historial historial){
+    public HistorialResponse mapToDTO(Historial historial) {
         return new HistorialResponse(
                 historial.getId(),
                 historial.getIdReservas(),
@@ -77,7 +85,7 @@ public class HistorialService {
 
     }
 
-    public HistorialResponse guardar(HistorialRequest dto){
+    public HistorialResponse guardar(HistorialRequest dto) {
         Historial historial = new Historial(
                 null,
                 dto.getIdReservas(),
@@ -88,4 +96,17 @@ public class HistorialService {
         );
         return mapToDTO(historialRepo.save(historial));
     }
+
+    public List<HistorialResponse> mostrarTodos() {
+        return historialRepo.findAll()
+                .stream().map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<HistorialResponse> obtenerXId(Long id) {
+        return historialRepo.findById(id).map(this::mapToDTO);
+
+    }
+
+
 }

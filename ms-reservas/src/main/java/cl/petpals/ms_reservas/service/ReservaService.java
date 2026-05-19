@@ -54,6 +54,8 @@ public class ReservaService {
         reserva.setFechaFinReserva(dto.getFechaFinReserva());
         reserva.setEstadoReserva(EstadoReserva.PENDIENTE);
 
+
+        //se mandan los datos que se guardo en reserva hacia historial
         historialAsyncService.enviarHistorial(reserva);
 
         return mapToDto(reservaRepository.save(reserva));

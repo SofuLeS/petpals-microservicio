@@ -6,10 +6,9 @@ import com.MUbicacion.MicroServicioUbicacion.dto.ResponseDTO;
 import com.MUbicacion.MicroServicioUbicacion.service.ServiceUbicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -24,5 +23,10 @@ public class ControllerUbicacion {
         ResponseDTO respuesta = service.crearUbicacion(request);
         return ResponseEntity.ok(respuesta); // devolvemos la respuesta
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ResponseDTO>> mostrarTodas() {
+        return ResponseEntity.ok(service.obtenerTodas());
     }
 }

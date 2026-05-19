@@ -1,3 +1,8 @@
+# Read Me First
+The following was discovered as part of building this project:
+
+* The original package name 'cl.petpals.ms-pago' is invalid and this project uses 'cl.petpals.ms_pago' instead.
+
 # Getting Started
 
 ### Reference Documentation

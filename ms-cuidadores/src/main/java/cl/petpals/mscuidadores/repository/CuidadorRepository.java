@@ -27,6 +27,9 @@ public interface CuidadorRepository extends JpaRepository<Cuidador, Long> {
     List<Cuidador> findByCategoriaNombreContainingIgnoreCase(String categoriaPet);
     List<Cuidador> findByCategoriaId(Long categoriaId);
 
+    List<Cuidador> findByMascotasCuidadasGreaterThanEqual(Integer cantidad);
+    List<Cuidador> findByAnosExperinciaGreaterThanEqual(Integer anos);
+
     Optional<Cuidador> findByRut(String rut);
     Optional<Cuidador> findByEmail(String email);
 

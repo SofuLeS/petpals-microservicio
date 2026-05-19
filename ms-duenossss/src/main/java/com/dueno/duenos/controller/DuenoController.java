@@ -6,6 +6,7 @@ import com.dueno.duenos.model.Dueno;
 import com.dueno.duenos.service.DuenoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DuenoController {
 
+    @Autowired
     private final DuenoService duenoService;
 
 

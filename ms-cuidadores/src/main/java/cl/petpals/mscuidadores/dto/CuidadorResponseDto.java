@@ -17,6 +17,8 @@ public class CuidadorResponseDto {
     private String email;
     private int edad;
     private String nombreCategoria;
+    private Integer anosExperincia;
+    private Integer mascotasCuidadas;
     private Boolean disponibilidad;
-
+    private Double calificacion;
 }

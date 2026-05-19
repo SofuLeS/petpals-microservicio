@@ -5,6 +5,7 @@ import com.dueno.duenos.dto.DuenoResponse;
 import com.dueno.duenos.model.Dueno;
 import com.dueno.duenos.repository.DuenoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class DuenoService {
+    @Autowired
     private final DuenoRepository duenoRepository;
 
     //Creamos un metodo para transformar el objeto Dueno a DuenoResponse

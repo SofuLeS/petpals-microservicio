@@ -18,5 +18,6 @@ public class ReservaResponseDto {
     private Long idCuidador;
     private Long idServicio;
     private LocalDateTime fechaReserva;
+    private LocalDateTime fechaFinReserva;
     private EstadoReserva estadoReserva;
 }

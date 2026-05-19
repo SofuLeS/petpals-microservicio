@@ -28,8 +28,8 @@ public class WebClientConfig {
                 return;
             }
 
-            // Insertamos datos de prueba con formato: (id, idCuidador, fecha, horaInicio, horaFin)
-            // Usamos null en el ID para que MySQL use el Auto_Increment sin reclamar
+            // Insertamos datos de prueba
+            // Usamos null en el ID para que auto incremente
             repositoryCalendario.save(new ModelCalendario(null, 101L, LocalDate.of(2026, 11, 3), LocalTime.of(14, 0), LocalTime.of(13, 46)));
             repositoryCalendario.save(new ModelCalendario(null, 101L, LocalDate.of(2026, 11, 4), LocalTime.of(13, 0), LocalTime.of(12, 23)));
             repositoryCalendario.save(new ModelCalendario(null, 102L, LocalDate.of(2026, 11, 3), LocalTime.of(15, 0), LocalTime.of(14, 50)));

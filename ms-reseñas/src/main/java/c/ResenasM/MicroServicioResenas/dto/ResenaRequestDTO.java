@@ -1,10 +1,15 @@
-package com.ResenasM.MicroServicioResenas.dto;
+package c.ResenasM.MicroServicioResenas.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class ResenasRequestDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+
+public class ResenaRequestDTO {
     @NotNull(message = "El ID de la reserva es obligatorio")
     private Long idReserva;
 

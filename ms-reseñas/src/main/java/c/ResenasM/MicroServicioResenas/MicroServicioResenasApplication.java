@@ -1,4 +1,4 @@
-package com.ResenasM.MicroServicioResenas;
+package c.ResenasM.MicroServicioResenas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.ResenasM.MicroServicioResenas.model;
+package c.ResenasM.MicroServicioResenas.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

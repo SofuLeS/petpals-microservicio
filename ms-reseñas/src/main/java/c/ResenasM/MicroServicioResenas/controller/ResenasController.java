@@ -1,8 +1,9 @@
-package com.ResenasM.MicroServicioResenas.controller;
+package c.ResenasM.MicroServicioResenas.controller;
 
-import com.ResenasM.MicroServicioResenas.service.IResenaService;
-import com.ResenasM.MicroServicioResenas.dto.ResenaResponseDTO;
-import com.ResenasM.MicroServicioResenas.dto.ResenasRequestDTO;
+
+import c.ResenasM.MicroServicioResenas.dto.ResenaRequestDTO;
+import c.ResenasM.MicroServicioResenas.dto.ResenaResponseDTO;
+import c.ResenasM.MicroServicioResenas.service.IResenaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,11 @@ public class ResenasController {
     @Autowired
     private IResenaService resenaService;
 
+
+
     //Endpoint para crear una reseña
     @PostMapping
-    public ResponseEntity<ResenaResponseDTO> crearResena(@Valid @RequestBody ResenasRequestDTO dto) {
+    public ResponseEntity<ResenaResponseDTO> crearResena(@Valid @RequestBody ResenaRequestDTO dto) {
         ResenaResponseDTO respuesta = resenaService.guardar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
     }

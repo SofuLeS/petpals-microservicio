@@ -1,11 +1,10 @@
-package com.ResenasM.MicroServicioResenas.service;
+package c.ResenasM.MicroServicioResenas.service;
 
-import com.ResenasM.MicroServicioResenas.config.Data;
-import com.ResenasM.MicroServicioResenas.exception.ResourceNotFoundException;
-import com.ResenasM.MicroServicioResenas.model.ResenasModel;
-import com.ResenasM.MicroServicioResenas.repository.ResenasRepository;
-import com.ResenasM.MicroServicioResenas.dto.ResenaResponseDTO;
-import com.ResenasM.MicroServicioResenas.dto.ResenasRequestDTO;
+import c.ResenasM.MicroServicioResenas.dto.ResenaRequestDTO;
+import c.ResenasM.MicroServicioResenas.dto.ResenaResponseDTO;
+import c.ResenasM.MicroServicioResenas.exception.ResourceNotFoundException;
+import c.ResenasM.MicroServicioResenas.model.ResenasModel;
+import c.ResenasM.MicroServicioResenas.repository.ResenasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,29 +17,29 @@ public class ResenaService implements IResenaService {
     @Autowired
     private ResenasRepository resenasRepository;
 
+    // Usamos la ruta completa para que tu clase Data de config no choque con nada
     @Autowired
-    private Data webClientData;
-
+    private c.ResenasM.MicroServicioResenas.config.Data webClientData;
 
     @Override
-    public ResenaResponseDTO guardar(ResenasRequestDTO dto) {
+    public ResenaResponseDTO guardar(ResenaRequestDTO dto) {
 
         // Esto va a validar que antes de guardar un dato vaya y le pregunte al
         // otro microservicio si existe o valida id.
         try {
             webClientData.obtenerDuenoId(dto.getIdDueno());
         } catch (Exception e) {
-            throw new ResourceNotFoundException("No se puede crear la reseña: El dueño con ID " + dto.getIdDueno() + " no existe.");
+            throw new ResourceNotFoundException("No se puede crear la reseña, El dueño con ID " + dto.getIdDueno() + " no existe.");
         }
-        // 2. Validamos que el Cuidador exista en el otro microservicio
+
+        // Validamos que el Cuidador exista en el otro microservicio
         try {
             webClientData.obtenerCuidadorId(dto.getIdCuidador());
         } catch (Exception e) {
-            throw new ResourceNotFoundException("No se puede crear la reseña: El cuidador con ID " + dto.getIdCuidador() + " no existe.");
+            throw new ResourceNotFoundException("No se puede crear la reseña, El cuidador con ID " + dto.getIdCuidador() + " no existe.");
         }
-        //
-        //Limpiamos
-        // Evita q se guarden mensajes raros
+
+        // Limpiamos comentarios para evitar espacios raros
         String comentarioLimpio = dto.getComentarios().trim();
 
         // Creamos la entidad y pasamos los datos del DTO
@@ -48,28 +47,28 @@ public class ResenaService implements IResenaService {
         nuevaResena.setEstrellas(dto.getEstrellas());
         nuevaResena.setComentarios(comentarioLimpio);
 
-        // Pasamos losid
+        // Pasamos los IDs
         nuevaResena.setIdReserva(dto.getIdReserva());
         nuevaResena.setIdDueno(dto.getIdDueno());
         nuevaResena.setIdCuidador(dto.getIdCuidador());
 
-        //guardamos en la base de datos { fecha.}
+        // Guardamos en la base de datos
         ResenasModel resenaGuardada = resenasRepository.save(nuevaResena);
 
-        // resultado a DTO para responder a Postman
+        // Resultado a DTO para responder a Postman
         return MapDTO(resenaGuardada);
     }
 
     @Override
     public List<ResenaResponseDTO> listarPorCuidador(Long idCuidador) {
-        // Buscamos todas las reseñas que pertenecen a ese cuidador
+        // Buscamos todas las reseñas que pertenecen a ese cuidador y las mapeamos
         return resenasRepository.findByIdCuidador(idCuidador)
                 .stream()
                 .map(this::MapDTO)
                 .collect(Collectors.toList());
     }
 
-    //Toma el valor que tiene el modelo BD y lo copia dentro del DTO.
+    // Toma el valor que tiene el modelo BD y lo copia dentro del DTO.
     private ResenaResponseDTO MapDTO(ResenasModel modelo) {
         ResenaResponseDTO response = new ResenaResponseDTO();
         response.setIdResena(modelo.getIdResena());

@@ -1,4 +1,4 @@
-package com.ResenasM.MicroServicioResenas.exception;
+package c.ResenasM.MicroServicioResenas.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

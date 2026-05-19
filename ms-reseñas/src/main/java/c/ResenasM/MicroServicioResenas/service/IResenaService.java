@@ -1,11 +1,14 @@
-package com.ResenasM.MicroServicioResenas.service;
+package c.ResenasM.MicroServicioResenas.service;
 
-import com.ResenasM.MicroServicioResenas.dto.ResenaResponseDTO;
-import com.ResenasM.MicroServicioResenas.dto.ResenasRequestDTO;
+
+import c.ResenasM.MicroServicioResenas.dto.ResenaRequestDTO;
+import c.ResenasM.MicroServicioResenas.dto.ResenaResponseDTO;
+
 import java.util.List;
 
 public interface IResenaService {
-    ResenaResponseDTO guardar(ResenasRequestDTO dto);
+
+    ResenaResponseDTO guardar(ResenaRequestDTO dto);
 
     List<ResenaResponseDTO> listarPorCuidador(Long idCuidador);
 }

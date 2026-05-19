@@ -1,6 +1,7 @@
-package com.ResenasM.MicroServicioResenas.repository;
+package c.ResenasM.MicroServicioResenas.repository;
 
-import com.ResenasM.MicroServicioResenas.model.ResenasModel;
+
+import c.ResenasM.MicroServicioResenas.model.ResenasModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

@@ -12,25 +12,23 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class Datainizt implements CommandLineRunner {
 
-    // Spring los inyectará automáticamente gracias a @RequiredArgsConstructor
     private final RepositoryUbicacion repositoryUbicacion;
 
     @Override
     public void run(String... args) throws Exception {
 
+        // Si ya existen datos, no volvemos a insertar para no duplicar
         if (repositoryUbicacion.count() > 0) {
             log.info("La base de datos ya tiene ubicaciones registradas.");
             return;
         }
 
-        // Estructura sugerida: (id, idCuidador, ciudad, comuna, region)
-        // Usamos null en el ID para que MySQL use el auto increment
+        // Estructura
+        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Santiago", "Puente Alto", "Metropolitana"));
+        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Valparaíso", "Valparaíso", "Valparaíso"));
+        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Valparaíso", "Viña del Mar", "Valparaíso"));
+        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Santiago", "Maipú", "Metropolitana"));
 
-        repositoryUbicacion.save(new ModelUbicacion(null, 101L, "Puente Alto", "santiago", "Metropolitana"));
-        repositoryUbicacion.save(new ModelUbicacion(null, 102L, "Valparaíso", "Valparaiso", "V Región"));
-        repositoryUbicacion.save(new ModelUbicacion(null, 103L, "Viña del Mar", "Valparaiso", "V Region"));
-        repositoryUbicacion.save(new ModelUbicacion(null, 104L, "Maipu", "Santiago", "Metropolitana"));
-
-        log.info("¡Completado! {} ubicaciones de prueba insertadas.", repositoryUbicacion.count());
+        log.info("¡Ubicaciones de prueba inicializadas con éxito en la base de datos!");
     }
 }

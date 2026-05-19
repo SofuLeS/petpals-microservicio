@@ -1,4 +1,4 @@
-package com.ResenasM.MicroServicioResenas.exception;
+package c.ResenasM.MicroServicioResenas.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +13,12 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Aquí manejamos especificamente el error de "No encontrado"
+    // Aquí manejamos especificamente el error de "No encontrado", del webclient
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+    public ResponseEntity<?> ResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
         Map<String, Object> body = new HashMap<>();
-        body.put("time stamp", LocalDateTime.now());
-        body.put("message", ex.getMessage());
+        body.put("time", LocalDateTime.now());
+        body.put("mensaje", ex.getMessage());
         body.put("status", HttpStatus.NOT_FOUND.value());
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
@@ -28,8 +28,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGlobalException(Exception ex, WebRequest request) {
         Map<String, Object> body = new HashMap<>();
-        body.put("time stamp", LocalDateTime.now());
-        body.put("message", "Ocurrio un error interno en el servidor");
+        body.put("time", LocalDateTime.now());
+        body.put("mensaje", "Ocurrio un error interno en el servidor");
         body.put("detalles", ex.getMessage());
 
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);

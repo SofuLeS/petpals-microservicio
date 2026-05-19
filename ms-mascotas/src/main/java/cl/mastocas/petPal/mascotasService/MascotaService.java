@@ -31,21 +31,15 @@ public class MascotaService implements IMascotaService {
         );
     }
 
-    // Aqui recibe los datos del dto para la bbdd y postman
+    // Aqui recibe los datos del dto para la bbdd
     @Override
     public MascotaResponseDTO guardar(MascotaRequestDTO dto) {
-        // Aqui me dio error en el post entonces agg limpiar y ignorar case
-        String tipoLimpio = dto.getTipoMascota().trim();
-
         MascotaModel nuevaMascota = new MascotaModel();
-
         nuevaMascota.setNombre(dto.getNombre());
         nuevaMascota.setRaza(dto.getRaza());
         nuevaMascota.setEdad(dto.getEdad());
         nuevaMascota.setAlergias(dto.getAlergias());
-        //le pasamos el dato limpio
-        nuevaMascota.setTipoMascota(tipoLimpio);
-
+        nuevaMascota.setTipoMascota(dto.getTipoMascota());
         nuevaMascota.setIdDueno(dto.getIdDueno());
 
         return MapDTO(mascotaRepository.save(nuevaMascota));

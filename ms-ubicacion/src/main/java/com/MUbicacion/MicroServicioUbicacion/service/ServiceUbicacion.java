@@ -22,7 +22,7 @@ public class ServiceUbicacion {
     //Metodo guardar
     public ResponseDTO crearUbicacion(RequestDTO request) {
         Boolean existeCuidador = webClient.build().get()
-                .uri("http://localhost:8082/api/cuidadores/" + request.getIdCuidador())
+                .uri("http://localhost:8085/api/cuidadores/" + request.getIdCuidador())
                 .retrieve().bodyToMono(Boolean.class)// esperamos un true o false (si existe o no el cuidador)
                 .block(); // esperamos la respuesta ... login
         if (existeCuidador == null || !existeCuidador) {

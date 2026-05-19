@@ -15,6 +15,5 @@ public interface MascotasRepository extends JpaRepository<MascotaModel, Long> {
     // Filtro para buscar todas las mascotas que pertenecen a un mismo dueño
     List<MascotaModel> findByIdDueno(Long idDueno);
     // para el tipo de mascotad
-
     List<MascotaModel> findByTipoMascotaIgnoreCase(String tipoMascota);
 }

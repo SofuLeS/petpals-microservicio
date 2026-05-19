@@ -1,11 +1,15 @@
 package com.MUbicacion.MicroServicioUbicacion.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.swing.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "ubicaciones") //plural
 public class ModelUbicacion {

@@ -50,7 +50,7 @@ public class HistorialService {
 
     private DuenoResponse obtenerDueno(Long idDueno) {
         return webClientBuilder.baseUrl(duenoUrl).build()
-                .get().uri("/api/dueno" + idDueno).retrieve()
+                .get().uri("/api/dueno/" + idDueno).retrieve()
                 .bodyToMono(DuenoResponse.class).block();
     }
 
@@ -59,7 +59,7 @@ public class HistorialService {
 
     private ReservaResponse obtenerReserva(Long idReserva) {
         return webClientBuilder.baseUrl(reservaUrl).build()
-                .get().uri("/api/reserva" + idReserva).retrieve()
+                .get().uri("/api/reserva/" + idReserva).retrieve()
                 .bodyToMono(ReservaResponse.class).block();
     }
 
@@ -68,7 +68,7 @@ public class HistorialService {
 
     private ServicioResponse obtenerServicio(Long idServicio) {
         return webClientBuilder.baseUrl(servicioUrl).build()
-                .get().uri("/api/servicio" + idServicio).retrieve()
+                .get().uri("/api/servicio/" + idServicio).retrieve()
                 .bodyToMono(ServicioResponse.class).block();
     }
 

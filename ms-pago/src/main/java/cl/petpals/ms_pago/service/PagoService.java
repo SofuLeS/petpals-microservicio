@@ -93,7 +93,7 @@ public class PagoService {
         return pagoRepository.findByEstadoPago(estadoPago).stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
-    //ACtualizar estado
+    //Actualizar estado
     public Optional<PagoResponseDto> actualizarEstado(Long id, EstadoPago nuvoEstado){
         return pagoRepository.findById(id).map(existente -> {existente.setEstadoPago(nuvoEstado);
         return mapToDto(pagoRepository.save(existente));

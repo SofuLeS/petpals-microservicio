@@ -11,4 +11,6 @@ public interface IResenaService {
     ResenaResponseDTO guardar(ResenaRequestDTO dto);
 
     List<ResenaResponseDTO> listarPorCuidador(Long idCuidador);
+
+    List<ResenaResponseDTO> obtenerTodasLasResenas();
 }

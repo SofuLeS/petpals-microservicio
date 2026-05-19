@@ -34,4 +34,10 @@ public class ResenasController {
         List<ResenaResponseDTO> lista = resenaService.listarPorCuidador(idCuidador);
         return ResponseEntity.ok(lista);
     }
+
+    @GetMapping
+    public ResponseEntity<List<ResenaResponseDTO>> mostrarTodas() {
+        List<ResenaResponseDTO> resenas = resenaService.obtenerTodasLasResenas();
+        return ResponseEntity.ok(resenas);
+    }
 }

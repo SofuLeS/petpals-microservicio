@@ -98,7 +98,7 @@ public class ReservaService {
     //Actualizar estado
     public Optional<ReservaResponseDto> actualizarEstado(Long id, EstadoReserva nuevoEstado){
         return reservaRepository.findById(id).map(existente-> {existente.setEstadoReserva(nuevoEstado);
-        return mapToDto(reservaRepository.save(existente));
+            return mapToDto(reservaRepository.save(existente));
         });
     }
 

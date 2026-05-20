@@ -4,11 +4,13 @@ package com.Calendario.MicroservicioCalendario.service;
 import com.Calendario.MicroservicioCalendario.dtos.ResponseCalendarioDTO;
 import com.Calendario.MicroservicioCalendario.model.ModelCalendario;
 import com.Calendario.MicroservicioCalendario.repository.RepositoryCalendario;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Map;
 
 @Service
 public class ServiceCalendario {
@@ -50,19 +52,18 @@ public class ServiceCalendario {
         dto.setHoraFin(modelo.getHoraFin());
 
         try {
-            //llamamos a su endpoint de cuidador.
-            String nombreDelCuidador = webClientBuilder.build()
+            Map<String, Object> cuidador = webClientBuilder.build()
                     .get()
-                    .uri("http://localhost:8085/api/cuidadores/" + modelo.getIdCuidador() + "/Nombre")
+                    .uri("http://localhost:8085/api/cuidadores/" + modelo.getIdCuidador())
                     .retrieve()
-                    .bodyToMono(String.class)
-                    .block(); //
+                    .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+                    .block();
 
-            dto.setNombreCuidador(nombreDelCuidador);
-            dto.setTelefonoCuidador("+56912345678"); // Dato simulado
+            dto.setNombreCuidador(cuidador != null ? (String) cuidador.get("nombre") : "No disponible");
+            dto.setTelefonoCuidador(cuidador != null ? String.valueOf(cuidador.get("telefono")) : "No disponible");
         } catch (Exception e) {
-            // Si el micro de ella está apagado, le ponemos un nombre por defecto para que no se caiga tu app
             dto.setNombreCuidador("Cuidador No Disponible MicroService off");
+            dto.setTelefonoCuidador("No disponible");
         }
 
         return dto;

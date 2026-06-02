@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface RepositoryCalendario extends JpaRepository<ModelCalendario, Long> {
 
-    // Para buscar los cuidadores disponibles un día específico
+    // Buscar los cuidadores disponibles un día específico
     List<ModelCalendario> findByFecha(LocalDate fecha);
 
-    // 3 registros al azar en caso que se quiera consultar un dias disponibles
-    @Query(value = "SELECT * FROM calendarios ORDER BY RAND() LIMIT 3", nativeQuery = true)
+    // SOLUCIÓN: Consulta a través de la entidad Java. Spring se encarga de buscar la tabla correcta.
+    @Query(value = "SELECT c FROM ModelCalendario c ORDER BY FUNCTION('RAND') ASC LIMIT 3")
     List<ModelCalendario> findCuidadoresAleatorios();
 }

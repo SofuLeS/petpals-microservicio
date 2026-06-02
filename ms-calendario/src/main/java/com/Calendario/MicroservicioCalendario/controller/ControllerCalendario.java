@@ -31,4 +31,8 @@ public class ControllerCalendario {
     public ResponseEntity<List<ResponseCalendarioDTO>> obtenerAleatorios() {
         return ResponseEntity.ok(serviceCalendario.obtenerAleatorios());
     }
+    @GetMapping
+    public ResponseEntity<List<ResponseCalendarioDTO>> mostrarTodos() {
+        return ResponseEntity.ok(serviceCalendario.obtenerTodos());
+    }
 }

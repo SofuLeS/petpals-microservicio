@@ -4,13 +4,12 @@ package com.Calendario.MicroservicioCalendario.service;
 import com.Calendario.MicroservicioCalendario.dtos.ResponseCalendarioDTO;
 import com.Calendario.MicroservicioCalendario.model.ModelCalendario;
 import com.Calendario.MicroservicioCalendario.repository.RepositoryCalendario;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ServiceCalendario {
@@ -18,7 +17,7 @@ public class ServiceCalendario {
     private final RepositoryCalendario repositoryCalendario;
     private final WebClient.Builder webClientBuilder;
 
-    // Constructor manual para evitar problemas de Lombok
+    //
     public ServiceCalendario(RepositoryCalendario repositoryCalendario, WebClient.Builder webClientBuilder) {
         this.repositoryCalendario = repositoryCalendario;
         this.webClientBuilder = webClientBuilder;
@@ -42,7 +41,6 @@ public class ServiceCalendario {
                 .collect(Collectors.toList());
     }
 
-    // transformaos a dto los datos
     private ResponseCalendarioDTO convertirADtoConCuidador(ModelCalendario modelo) {
         ResponseCalendarioDTO dto = new ResponseCalendarioDTO();
         dto.setIdCalendario(modelo.getId());
@@ -52,20 +50,35 @@ public class ServiceCalendario {
         dto.setHoraFin(modelo.getHoraFin());
 
         try {
-            Map<String, Object> cuidador = webClientBuilder.build()
+            // Llamamos al endpoint GET por ID que sí sabemos que funciona en el 8085
+            Map<?, ?> cuidadorJson = webClientBuilder.build()
                     .get()
                     .uri("http://localhost:8085/api/cuidadores/" + modelo.getIdCuidador())
                     .retrieve()
-                    .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+                    .bodyToMono(Map.class) // Lo leemos como un mapa clave,valor
                     .block();
 
-            dto.setNombreCuidador(cuidador != null ? (String) cuidador.get("nombre") : "No disponible");
-            dto.setTelefonoCuidador(cuidador != null ? String.valueOf(cuidador.get("telefono")) : "No disponible");
+            if (cuidadorJson != null) {
+                // Extraemos los campos de cuidadores
+                String nombre = (String) cuidadorJson.get("nombre");
+                String apellidos = (String) cuidadorJson.get("apellidos");
+                Object telefono = cuidadorJson.get("telefono");
+
+                dto.setNombreCuidador(nombre + " " + apellidos);
+                dto.setTelefonoCuidador(telefono != null ? telefono.toString() : "Sin teléfono");
+            }
         } catch (Exception e) {
-            dto.setNombreCuidador("Cuidador No Disponible MicroService off");
-            dto.setTelefonoCuidador("No disponible");
+            // Si el micro de Cuidadores está apagado o no encuentra el ID, entra aquí
+            dto.setNombreCuidador("Cuidador No Disponible (ID " + modelo.getIdCuidador() + ")");
+            dto.setTelefonoCuidador("N/A");
         }
 
         return dto;
+    }
+    // Método para mostrar todos los calendarios
+    public List<ResponseCalendarioDTO> obtenerTodos() {
+        return repositoryCalendario.findAll().stream()
+                .map(this::convertirADtoConCuidador)
+                .collect(Collectors.toList());
     }
 }

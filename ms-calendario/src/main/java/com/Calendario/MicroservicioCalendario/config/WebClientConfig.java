@@ -24,7 +24,7 @@ public class WebClientConfig {
     CommandLineRunner initDatabase(RepositoryCalendario repositoryCalendario) {
         return args -> {
             if (repositoryCalendario.count() > 0) {
-                System.out.println(" Ya tenemos datos en Calendario ");
+                System.out.println(" Los datos se cargaron exitosamente ");
                 return;
             }
 

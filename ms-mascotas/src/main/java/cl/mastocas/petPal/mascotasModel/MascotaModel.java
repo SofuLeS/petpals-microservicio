@@ -29,7 +29,7 @@ public class MascotaModel {
     private String alergias;
 
     @Column(length = 100)
-    private String TipoMascota;
+    private String tipoMascota;
 
     // Aqui hacemos un llamado al micro servicio dueño para haceruna relacion entre dos tablas.
     @Column(name = "id_dueño", nullable = false)

@@ -24,10 +24,10 @@ public class Datainizt implements CommandLineRunner {
         }
 
         // Estructura
-        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Santiago", "Puente Alto", "Metropolitana"));
+        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Punete Alto", "Santiago ", "Metropolitana"));
         repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Valparaíso", "Valparaíso", "Valparaíso"));
-        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Valparaíso", "Viña del Mar", "Valparaíso"));
-        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Santiago", "Maipú", "Metropolitana"));
+        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Viña del Mar", "Valparaiso", "Valparaíso"));
+        repositoryUbicacion.save(new ModelUbicacion(null, 1L, "Maipu", "Santiago", "Metropolitana"));
 
         log.info("¡Ubicaciones de prueba inicializadas con éxito en la base de datos!");
     }

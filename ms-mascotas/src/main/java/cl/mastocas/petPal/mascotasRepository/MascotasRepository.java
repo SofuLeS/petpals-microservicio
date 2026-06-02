@@ -10,6 +10,7 @@ import java.util.List;
 public interface MascotasRepository extends JpaRepository<MascotaModel, Long> {
 
     // Busca mascotas por nombre ignorando mayúsculas/minúsculas
+
     List<MascotaModel> findByNombreContainingIgnoreCase(String nombre);
 
     // Filtro para buscar todas las mascotas que pertenecen a un mismo dueño

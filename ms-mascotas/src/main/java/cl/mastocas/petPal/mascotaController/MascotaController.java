@@ -48,6 +48,12 @@ public class MascotaController {
         // Lanza un objeto o lanza excepción
         return ResponseEntity.ok(mascotaService.actualizar(id, dto));
     }
+    // Obtener mascotas por el ID del dueño
+    @GetMapping("/dueno/{idDueno}")
+    public ResponseEntity<List<MascotaResponseDTO>> obtenerPorIdDueno(@PathVariable Long idDueno) {
+        List<MascotaResponseDTO> mascotas = mascotaService.buscarPorDueno(idDueno);
+        return ResponseEntity.ok(mascotas);
+    }
 
     // Eliminar mascota
     @DeleteMapping("/{id}")

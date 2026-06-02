@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MascotaRequestDTO {
+public class  MascotaRequestDTO {
 
     // no vamos a incluir id porque lo genera autom.
     // anotaciones
@@ -30,7 +30,7 @@ public class MascotaRequestDTO {
     private String alergias; // Este lo vamos hacer opcional.
 
     @NotBlank(message = "El tipo de Mascotas debe ser obligatorio")
-    private String TipoMascota;
+    private String tipoMascota;
 
     @NotNull(message = "El id del dueño es obligatorio.")
     private Long idDueno;

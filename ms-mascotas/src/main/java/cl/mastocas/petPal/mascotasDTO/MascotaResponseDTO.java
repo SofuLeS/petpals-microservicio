@@ -17,7 +17,7 @@ public class MascotaResponseDTO {
     private String raza;
     private Integer edad;
     private String alergias;
-    private String TipoMascotas;
+    private String tipoMascota;
 
     // Aqui la relacion
     private Long idDueno;

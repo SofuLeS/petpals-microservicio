@@ -4,6 +4,7 @@ package c.ResenasM.MicroServicioResenas.controller;
 import c.ResenasM.MicroServicioResenas.dto.ResenaRequestDTO;
 import c.ResenasM.MicroServicioResenas.dto.ResenaResponseDTO;
 import c.ResenasM.MicroServicioResenas.service.IResenaService;
+import c.ResenasM.MicroServicioResenas.service.ResenaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,17 +28,18 @@ public class ResenasController {
         ResenaResponseDTO respuesta = resenaService.guardar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
     }
-
-    // listar reseñas de un cuidador
-    @GetMapping("/cuidador/{id}")
-    public ResponseEntity<List<ResenaResponseDTO>> listarPorCuidador(@PathVariable("id") Long idCuidador) {
-        List<ResenaResponseDTO> lista = resenaService.listarPorCuidador(idCuidador);
-        return ResponseEntity.ok(lista);
-    }
-
+    // Obtener todas las reseñas
     @GetMapping
-    public ResponseEntity<List<ResenaResponseDTO>> mostrarTodas() {
-        List<ResenaResponseDTO> resenas = resenaService.obtenerTodasLasResenas();
-        return ResponseEntity.ok(resenas);
+    public ResponseEntity<List<ResenaResponseDTO>> obtenerTodas() {
+        return ResponseEntity.ok(resenaService.obtenerTodasLasResenas());
     }
+
+
+    // Obtener reseñas de un cuidador específico
+    @GetMapping("/cuidador/{idCuidador}")
+    public ResponseEntity<List<ResenaResponseDTO>> listarPorCuidador(@PathVariable Long idCuidador) {
+        return ResponseEntity.ok(resenaService.listarPorCuidador(idCuidador));
+
+    }
+
 }

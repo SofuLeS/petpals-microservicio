@@ -22,7 +22,7 @@ public class ServiceUbicacion {
     @Autowired
     private WebClient.Builder webClient;
 
-    //Métodode conversión centralizado (DTO Map)
+    // Métodode conversión centralizado (DTO Map)
     private ResponseDTO MapDTO(ModelUbicacion modelo) {
         ResponseDTO response = new ResponseDTO();
         response.setId(modelo.getId());
@@ -33,19 +33,22 @@ public class ServiceUbicacion {
         return response;
     }
 
-    //Método guardar
+    // Método guardar
     public ResponseDTO crearUbicacion(RequestDTO request) {
         try {
+            // Cambiado a 8085 (Cuidadores) y esperando Object para recibir el JSON completo
             webClient.build().get()
                     .uri("http://localhost:8085/api/cuidadores/" + request.getIdCuidador())
                     .retrieve()
                     .bodyToMono(Object.class)
                     .block();
+
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cuidador no encontrado");
+            // Si el micro de cuidadores no lo encuentra o está apagado, rebota aquí
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se puede crear la ubicación: El Cuidador con ID " + request.getIdCuidador() + " no existe.");
         }
 
-        //si existia y paso creamos la entidad
+        // Si el cuidador existe, continúa el flujo normal
         ModelUbicacion modelo = new ModelUbicacion();
         modelo.setIdCuidador(request.getIdCuidador());
         modelo.setComuna(request.getComuna());
@@ -54,18 +57,19 @@ public class ServiceUbicacion {
 
         ModelUbicacion guardado = repositoryUbicacion.save(modelo);
 
-        //retornamos la respuesta usando el mapeador automático
         return MapDTO(guardado);
-    }
 
-    //Método obtener todas las ubicaciones
+        }
+
+
+    // Método obtener todas las ubicaciones
     public List<ResponseDTO> obtenerTodas() {
         return repositoryUbicacion.findAll().stream()
                 .map(this::MapDTO) // Reutiliza el método MapDTO automáticamente
                 .collect(Collectors.toList());
     }
 
-    //Consulta con filtro (buscar comuna) donde buscaremos un cuidador cercano.
+    // Consulta con filtro (buscar comuna) donde buscaremos un cuidador cercano.
     public List<ResponseDTO> buscarPorComuna(String comuna) {
         return repositoryUbicacion.findByComunaIgnoreCase(comuna).stream() // procesando los datos.
                 .map(this::MapDTO)

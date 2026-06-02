@@ -13,6 +13,8 @@ public interface IMascotaService {
 
     MascotaResponseDTO guardar(MascotaRequestDTO dto);
 
+    List<MascotaResponseDTO> buscarPorDueno(Long idDueno);
+
     List<MascotaResponseDTO> obtenerTodos();
 
     List<MascotaResponseDTO> obtenerTodas();

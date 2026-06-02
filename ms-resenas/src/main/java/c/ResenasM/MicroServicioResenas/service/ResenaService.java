@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+
 @Service
 public class ResenaService implements IResenaService {
 
@@ -80,21 +82,20 @@ public class ResenaService implements IResenaService {
         response.setFechaResena(modelo.getFechaResena());
         return response;
     }
-
-    @Override
-    //Metodo para mostrar todos en el post.
-    public List<ResenaResponseDTO> obtenerTodasLasResenas() {
-        return resenasRepository.findAll().stream()
-                .map(resena -> {
-                    ResenaResponseDTO dto = new ResenaResponseDTO();
-                    dto.setIdReserva(resena.getIdReserva());
-                    dto.setIdDueno(resena.getIdDueno());
-                    dto.setIdCuidador(resena.getIdCuidador());
-                    dto.setEstrellas(resena.getEstrellas());
-                    dto.setComentarios(resena.getComentarios());
-                    dto.setFechaResena(resena.getFechaResena());
-                    return dto;
-                })
-                .collect(Collectors.toList());
+       @Override
+       //Metodo para mostrar todos en el post.
+       public List<ResenaResponseDTO> obtenerTodasLasResenas() {
+           return resenasRepository.findAll().stream()
+               .map(resena -> {
+                   ResenaResponseDTO dto = new ResenaResponseDTO();
+                   dto.setIdReserva(resena.getIdReserva());
+                   dto.setIdDueno(resena.getIdDueno());
+                   dto.setIdCuidador(resena.getIdCuidador());
+                   dto.setEstrellas(resena.getEstrellas());
+                   dto.setComentarios(resena.getComentarios());
+                   dto.setFechaResena(resena.getFechaResena());
+                   return dto;
+               })
+                        .collect(Collectors.toList());
     }
 }

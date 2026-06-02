@@ -92,13 +92,6 @@ public class MascotaService implements IMascotaService {
         //delett
     }
 
-
-    // Busca mascotas por nombre
-    public List<MascotaResponseDTO> buscarPorNombre(String nombre) {
-        return mascotaRepository.findByNombreContainingIgnoreCase(nombre)
-                .stream().map(this::MapDTO).collect(Collectors.toList());
-    }
-
     // mascotas por el tipo
     public List<MascotaResponseDTO> buscarPorTipo(String tipo) {
         return mascotaRepository.findByTipoMascotaIgnoreCase(tipo)

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +34,9 @@ public class PagoService {
                 .build()
                 .get()
                 .uri("/api/reservas/" + idReserva)
-                .retrieve()
+                .retrieve().
+                onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
+                        resp -> Mono.error(new RuntimeException("Reserva con id "+ idReserva + " no exite o servicio no disponible")))
                 .bodyToMono(ReservaResponseDto.class)
                 .block();
     }

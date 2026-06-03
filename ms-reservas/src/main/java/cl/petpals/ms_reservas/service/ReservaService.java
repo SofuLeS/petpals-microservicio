@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,7 +35,9 @@ public class ReservaService {
                 .build()
                 .get()
                 .uri("/api/cuidadores/" + idCuidador)
-                .retrieve()
+                .retrieve().
+                onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
+                        resp -> Mono.error(new RuntimeException("Cuidador con id " +idCuidador+" no exoste o servico no disponible")))
                 .bodyToMono(CuidadorResponseDto.class)
                 .block();
     }
@@ -102,6 +106,8 @@ public class ReservaService {
     }
 
     public void eliminar(Long id){
+        if (!reservaRepository.existsById(id))
+            throw new RuntimeException("Reserva con id " + id + " no existe");
         reservaRepository.deleteById(id);
     }
 }

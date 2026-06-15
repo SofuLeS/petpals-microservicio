@@ -3,6 +3,7 @@ package cl.petpals.ms_pago.controller;
 import cl.petpals.ms_pago.dto.PagoRequestDto;
 import cl.petpals.ms_pago.dto.PagoResponseDto;
 import cl.petpals.ms_pago.modelo.EstadoPago;
+import cl.petpals.ms_pago.modelo.MetodoPago;
 import cl.petpals.ms_pago.service.PagoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -57,5 +58,10 @@ public class PagoController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id){
         pagoService.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/metodo-pago")
+    public ResponseEntity<PagoResponseDto> cambiarMetodoPago(@PathVariable Long id, @RequestBody MetodoPago nuevoMetodo) {
+        return ResponseEntity.ok(pagoService.cambiarMetodoPago(id, nuevoMetodo));
     }
 }

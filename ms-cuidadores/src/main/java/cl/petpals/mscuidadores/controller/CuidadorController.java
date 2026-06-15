@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cuidadores")
@@ -42,9 +45,12 @@ public class CuidadorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id){
+    public ResponseEntity<Map<String, String>> eliminar(@PathVariable Long id){
         if (cuidadorService.obtenerPorId(id).isEmpty()){
-            return ResponseEntity.notFound().build();
+            Map<String, String> error = new LinkedHashMap<>();
+            error.put("error", " Cuidador con id " +id+ " no existe");
+            error.put("motivo", "No se encontro cuidaro con esa id en la base de datos");
+            return ResponseEntity.status(404).body(error);
         }
         cuidadorService.eliminar(id);
         return ResponseEntity.noContent().build();

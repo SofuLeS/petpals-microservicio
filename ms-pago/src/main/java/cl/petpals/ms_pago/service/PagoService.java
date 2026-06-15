@@ -4,6 +4,7 @@ import cl.petpals.ms_pago.dto.PagoRequestDto;
 import cl.petpals.ms_pago.dto.PagoResponseDto;
 import cl.petpals.ms_pago.dto.ReservaResponseDto;
 import cl.petpals.ms_pago.modelo.EstadoPago;
+import cl.petpals.ms_pago.modelo.MetodoPago;
 import cl.petpals.ms_pago.modelo.Pago;
 import cl.petpals.ms_pago.repository.PagoRepository;
 import lombok.RequiredArgsConstructor;
@@ -105,7 +106,19 @@ public class PagoService {
 
     //Eliminars
     public void eliminar(Long id){
+        if (!pagoRepository.existsById(id)){
+            throw new RuntimeException("Pago con id " +id+ " no existe");
+        }
         pagoRepository.deleteById(id);
     }
 
+    //cambiar metodos de pago
+    public PagoResponseDto cambiarMetodoPago(Long id, MetodoPago nuevoMetodo){
+        Pago pago = pagoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pago con id " + id + " no existe"));
+        if (pago.getEstadoPago() != EstadoPago.PENDIENTE){
+            throw new RuntimeException("Solo se puede cambiar el método de pago si el pago está en estado PENDIENTE. Estado actual: )" + pago.getEstadoPago());
+        }
+        pago.setMetodoPago(nuevoMetodo);
+        return mapToDto(pagoRepository.save(pago));
+    }
 }

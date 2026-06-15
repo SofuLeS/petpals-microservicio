@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,5 +25,24 @@ public class GlobalExceptionHandler {
         Map<String, String> error = new LinkedHashMap<>();
         error.put("error", ex.getMessage());
         return ResponseEntity.status(404).body(error);
+    }
+
+    //Estado de pago o metodos de pago invalido
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    private ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException exception){
+        Map<String, String> error = new LinkedHashMap<>();
+        error.put("campo", exception.getName());
+        error.put("valorRecibido", String.valueOf(exception.getValue()));
+        error.put("valorInvalido", "EstadoPago válidos: PENDIENTE, COMPLETADO, FALLIDO, REEMBOLSADO. MetodoPago válidos: TARJETA_DEBITO, TARJETA_CREDITO, TRANSFERENCIA, EFECTIVO.");
+        return ResponseEntity.badRequest().body(error);
+    }
+
+    //Error generico
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleGenericException(Exception exception){
+        Map<String, String> error = new LinkedHashMap<>();
+        error.put("error", exception.getMessage());
+        error.put("motivo", "Ocurrio un error inesperado en el servidor");
+        return ResponseEntity.status(500).body(error);
     }
 }

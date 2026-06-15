@@ -23,6 +23,11 @@ public class CategoriaService {
     public Categoria guardar(Categoria categoria){return categoriaRepository.save(categoria);}
 
     //Eliminar
-    public void eliminar(Long id){categoriaRepository.deleteById(id);}
+    public void eliminar(Long id){
+        if(!categoriaRepository.existsById(id)){
+            throw new RuntimeException("Categoria con id " +id+ " no existe");
+        }
+        categoriaRepository.deleteById(id);
+    }
 
 }

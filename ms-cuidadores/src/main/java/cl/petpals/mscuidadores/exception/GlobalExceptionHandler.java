@@ -42,6 +42,7 @@ public class GlobalExceptionHandler {
         Map<String, String> error = new LinkedHashMap<>();
         error.put("campo", ex.getName());
         error.put("valorRecibido", String.valueOf(ex.getValue()));
+        error.put("valorInvalido", "Verifica que los tipos de dato sean correctos (números donde corresponde).");
         return ResponseEntity.badRequest().body(error);
     }
 

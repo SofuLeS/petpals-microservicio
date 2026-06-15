@@ -121,4 +121,14 @@ public class PagoService {
         pago.setMetodoPago(nuevoMetodo);
         return mapToDto(pagoRepository.save(pago));
     }
+
+    public List<PagoResponseDto> listarPorMetodo(MetodoPago metodo) {
+        return pagoRepository.findByMetodoPago(metodo).stream()
+                .map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<PagoResponseDto> listarPorRangoMonto(Double min, Double max) {
+        return pagoRepository.findByMontoBetween(min, max)
+                .stream().map(this::mapToDto).collect(Collectors.toList());
+    }
 }

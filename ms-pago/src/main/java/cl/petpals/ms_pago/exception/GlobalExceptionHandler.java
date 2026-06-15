@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
 
     //Estado de pago o metodos de pago invalido
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    private ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException exception){
+    public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException exception){
         Map<String, String> error = new LinkedHashMap<>();
         error.put("campo", exception.getName());
         error.put("valorRecibido", String.valueOf(exception.getValue()));

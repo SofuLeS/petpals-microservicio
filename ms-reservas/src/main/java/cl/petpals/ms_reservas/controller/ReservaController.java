@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -60,5 +61,27 @@ public class ReservaController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id){
         reservaService.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/estado")
+    public ResponseEntity<List<ReservaResponseDto>> porEstado(@RequestParam EstadoReserva estado) {
+        return ResponseEntity.ok(reservaService.listarPorEstado(estado));
+    }
+
+    @GetMapping("/mascota/{idMascota}")
+    public ResponseEntity<List<ReservaResponseDto>> porMascota(@PathVariable Long idMascota) {
+        return ResponseEntity.ok(reservaService.listarPorMascota(idMascota));
+    }
+
+    @GetMapping("/fecha")
+    public ResponseEntity<List<ReservaResponseDto>> porFecha(
+            @RequestParam LocalDate desde, @RequestParam LocalDate hasta) {
+        return ResponseEntity.ok(reservaService.listarPorFecha(desde, hasta));
+    }
+
+    @GetMapping("/cuidador/{idCuidador}/estado")
+    public ResponseEntity<List<ReservaResponseDto>> porCuidadorYEstado(
+            @PathVariable Long idCuidador, @RequestParam EstadoReserva estado) {
+        return ResponseEntity.ok(reservaService.listarPorCuidadorYEstado(idCuidador, estado));
     }
 }

@@ -13,4 +13,5 @@ public interface PagoRepository extends JpaRepository<Pago, Long> {
     List<Pago> findByIdDueno(Long idDueno);
     List<Pago> findByEstadoPago(EstadoPago estadoPago);
     List<Pago> findByMetodoPago(MetodoPago metodoPago);
+    List<Pago> findByMontoBetween(Double min, Double max);
 }

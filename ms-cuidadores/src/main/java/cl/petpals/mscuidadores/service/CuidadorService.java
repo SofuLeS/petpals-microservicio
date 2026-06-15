@@ -9,6 +9,7 @@ import cl.petpals.mscuidadores.repository.CuidadorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -120,5 +121,29 @@ public class CuidadorService {
             existente.setCalificacion(null);
             return mapToDto(cuidadorRepository.save(existente));
         });
+    }
+
+    public List<CuidadorResponseDto> buscarPorApellido(String apellido) {
+        return cuidadorRepository.findByApellidosContainingIgnoreCase(apellido)
+                .stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<CuidadorResponseDto> listarPorCalificacion() {
+        return cuidadorRepository.findAll().stream()
+                .sorted(Comparator.comparing(Cuidador::getCalificacion,
+                        Comparator.nullsLast(Comparator.reverseOrder())))
+                .map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<CuidadorResponseDto> listarPorMascotas() {
+        return cuidadorRepository.findAll().stream()
+                .sorted(Comparator.comparing(Cuidador::getMascotasCuidadas,
+                        Comparator.nullsLast(Comparator.reverseOrder())))
+                .map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<CuidadorResponseDto> listarOrdenadosPorApellido() {
+        return cuidadorRepository.findAllByOrderByApellidosAsc()
+                .stream().map(this::mapToDto).collect(Collectors.toList());
     }
 }

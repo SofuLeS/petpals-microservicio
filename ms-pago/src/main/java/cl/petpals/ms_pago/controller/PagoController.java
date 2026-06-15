@@ -64,4 +64,15 @@ public class PagoController {
     public ResponseEntity<PagoResponseDto> cambiarMetodoPago(@PathVariable Long id, @RequestBody MetodoPago nuevoMetodo) {
         return ResponseEntity.ok(pagoService.cambiarMetodoPago(id, nuevoMetodo));
     }
+
+    @GetMapping("/metodo")
+    public ResponseEntity<List<PagoResponseDto>> porMetodo(@RequestParam MetodoPago metodoPago) {
+        return ResponseEntity.ok(pagoService.listarPorMetodo(metodoPago));
+    }
+
+    @GetMapping("/monto")
+    public ResponseEntity<List<PagoResponseDto>> porMonto(
+            @RequestParam Double min, @RequestParam Double max) {
+        return ResponseEntity.ok(pagoService.listarPorRangoMonto(min, max));
+    }
 }

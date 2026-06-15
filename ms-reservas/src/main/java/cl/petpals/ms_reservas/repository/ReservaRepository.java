@@ -4,6 +4,7 @@ import cl.petpals.ms_reservas.model.EstadoReserva;
 import cl.petpals.ms_reservas.model.Reserva;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
@@ -15,6 +16,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
     //Buscar al cuidaror y su estado
     List<Reserva> findByIdCuidadorAndEstadoReserva(Long idCuidador, EstadoReserva estadoReserva);
-
+    List<Reserva> findByFechaReservaBetween(LocalDate desde, LocalDate hasta);
     List<Reserva> findByIdMascota(Long idMascota);
 }

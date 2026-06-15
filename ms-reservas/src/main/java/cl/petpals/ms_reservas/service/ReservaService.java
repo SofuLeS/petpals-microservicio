@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -109,5 +110,25 @@ public class ReservaService {
         if (!reservaRepository.existsById(id))
             throw new RuntimeException("Reserva con id " + id + " no existe");
         reservaRepository.deleteById(id);
+    }
+
+    public List<ReservaResponseDto> listarPorEstado(EstadoReserva estado) {
+        return reservaRepository.findByEstadoReserva(estado).stream()
+                .map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<ReservaResponseDto> listarPorMascota(Long idMascota) {
+        return reservaRepository.findByIdMascota(idMascota).stream()
+                .map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<ReservaResponseDto> listarPorFecha(LocalDate desde, LocalDate hasta) {
+        return reservaRepository.findByFechaReservaBetween(desde, hasta)
+                .stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<ReservaResponseDto> listarPorCuidadorYEstado(Long idCuidador, EstadoReserva estado) {
+        return reservaRepository.findByIdCuidadorAndEstadoReserva(idCuidador, estado)
+                .stream().map(this::mapToDto).collect(Collectors.toList());
     }
 }

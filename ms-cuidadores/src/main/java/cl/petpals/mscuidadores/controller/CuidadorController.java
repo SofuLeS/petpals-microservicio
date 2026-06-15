@@ -86,4 +86,24 @@ public class CuidadorController {
         return ResponseEntity.ok(cuidadorService.buscarPorAniosExperincia(anos));
     }
 
+    @GetMapping("/buscar-apellido")
+    public ResponseEntity<List<CuidadorResponseDto>> buscarPorApellido(@RequestParam String apellido) {
+        return ResponseEntity.ok(cuidadorService.buscarPorApellido(apellido));
+    }
+
+    @GetMapping("/top-calificacion")
+    public ResponseEntity<List<CuidadorResponseDto>> topPorCalificacion() {
+        return ResponseEntity.ok(cuidadorService.listarPorCalificacion());
+    }
+
+    @GetMapping("/top-mascotas")
+    public ResponseEntity<List<CuidadorResponseDto>> topPorMascotas() {
+        return ResponseEntity.ok(cuidadorService.listarPorMascotas());
+    }
+
+    @GetMapping("/ordenados-apellido")
+    public ResponseEntity<List<CuidadorResponseDto>> ordenadosPorApellido() {
+        return ResponseEntity.ok(cuidadorService.listarOrdenadosPorApellido());
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.Calendario.MicroservicioCalendario.service;
 
+import com.Calendario.MicroservicioCalendario.dtos.RequestCalendarioDTO;
 import com.Calendario.MicroservicioCalendario.dtos.ResponseCalendarioDTO;
 import com.Calendario.MicroservicioCalendario.model.ModelCalendario;
 import com.Calendario.MicroservicioCalendario.repository.RepositoryCalendario;
@@ -20,6 +21,18 @@ public class ServiceCalendario {
     public ServiceCalendario(RepositoryCalendario repositoryCalendario, WebClient.Builder webClientBuilder) {
         this.repositoryCalendario = repositoryCalendario;
         this.webClientBuilder = webClientBuilder;
+    }
+
+    // CORREGIDO: Ahora acepta el RequestCalendarioDTO que viene desde el controlador
+    public ResponseCalendarioDTO guardarCalendario(RequestCalendarioDTO dto) {
+        ModelCalendario nuevoCalendario = new ModelCalendario();
+        nuevoCalendario.setIdCuidador(dto.getIdCuidador());
+        nuevoCalendario.setFecha(dto.getFecha());
+        nuevoCalendario.setHoraInicio(dto.getHoraInicio());
+        nuevoCalendario.setHoraFin(dto.getHoraFin());
+
+        ModelCalendario guardado = repositoryCalendario.save(nuevoCalendario);
+        return convertirADtoConCuidador(guardado);
     }
 
     public List<ResponseCalendarioDTO> buscarPorFecha(LocalDate fecha) {
@@ -45,6 +58,10 @@ public class ServiceCalendario {
                 .map(this::convertirADtoConCuidador)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+    }
+
+    public ResponseCalendarioDTO obtenerPorId(ModelCalendario modelo) {
+        return convertirADtoConCuidador(modelo);
     }
 
     private ResponseCalendarioDTO convertirADtoConCuidador(ModelCalendario modelo) {
@@ -78,14 +95,5 @@ public class ServiceCalendario {
             System.out.println("El cuidador no esta registrado ID: " + modelo.getIdCuidador());
         }
         return null;
-    }
-
-    public ResponseCalendarioDTO guardarCalendario(ModelCalendario nuevoCalendario) {
-        ModelCalendario guardado = repositoryCalendario.save(nuevoCalendario);
-        return convertirADtoConCuidador(guardado);
-    }
-
-    public ResponseCalendarioDTO obtenerPorId(ModelCalendario modelo) {
-        return convertirADtoConCuidador(modelo);
     }
 }

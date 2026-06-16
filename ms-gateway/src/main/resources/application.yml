@@ -24,7 +24,7 @@ spring:
               uri: lb://MS-CUIDADORES
               predicates:
                 - Path=/api/cuidadores/**
-                -
+
             - id: ms-duenossss
               uri: lb://MS-DUENOSSSS
               predicates:

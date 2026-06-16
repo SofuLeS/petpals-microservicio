@@ -33,7 +33,7 @@ public class ServicioControllerTest {
     @MockitoBean
     private SServices service; // Crea un mock del servicio de servicios
 
-    private final ObjectMapper objectMapper = new ObjectMapper();; // Se usa para convertir objetos Java a JSON y viceversa
+    private final ObjectMapper objectMapper = new ObjectMapper(); // Se usa para convertir objetos Java a JSON y viceversa
 
     private ServicioMascotas servicio;
 
@@ -80,7 +80,7 @@ public class ServicioControllerTest {
     }
     @Test
     public void testCrearServicio() throws Exception {
-        // Define el comportamiento del mock: cuando se llame a save(), devuelve el objeto Estudiante
+        // Define el comportamiento del mock: cuando se llame a save(), devuelve el objeto servicio
         when(service.guardar(any(SMRequest.class))).thenReturn(servicioMascotaDto);
         // Realiza una petición POST a /api/servicios con el objeto servicio en formato JSON y verifica que la respuesta sea correcta
         mockMvc.perform(post("/api/servicios")
@@ -88,7 +88,7 @@ public class ServicioControllerTest {
                 .content(objectMapper.writeValueAsString(servicioMascotaDto))) // Convierte el objeto servicios a JSON
                 .andExpect(status().isCreated()) // Verifica que el estado de la respuesta sea 200 OK
                 .andExpect(jsonPath("$.id").value(1L)) // Verifica que el id del objeto devuelto sea 1
-                .andExpect(jsonPath("$.nombreServicio").value("Paseo")) // Verifica que el run del objeto devuelto sea "12345678-9"
+                .andExpect(jsonPath("$.nombreServicio").value("Paseo"))
                 .andExpect(jsonPath("$.descripcion").value("Paseo de una hora")) // Verifica que el primer elemento tenga la descripcion"Paseo de una hora"
                 .andExpect(jsonPath("$.precio").value(1000.0)); // Verifica que el primer elemento tenga el precio de 1000.0
     }

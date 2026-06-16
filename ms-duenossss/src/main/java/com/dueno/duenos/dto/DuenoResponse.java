@@ -30,7 +30,7 @@ public class DuenoResponse {
     private String apellidos;
 
     @Schema(description = "Telefono del Dueño",
-            example = "56948627", requiredMode = Schema.RequiredMode.REQUIRED)
+            example = "569486274", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer telefono;
 
     @Schema(description = "Correo electronico Dueño",

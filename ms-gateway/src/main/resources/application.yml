@@ -1,0 +1,82 @@
+server:
+  port: 8097
+
+spring:
+  application:
+    name: ms-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+
+            - id: ms-auth
+              uri: lb://MS-AUTH
+              predicates:
+                - Path=/api/auth/**
+
+            - id: MicroservicioCalendario
+              uri: lb://MICROSERVICIOCALENDARIO
+              predicates:
+                - Path=/api/calendario/**
+
+            - id: ms-cuidadores
+              uri: lb://MS-CUIDADORES
+              predicates:
+                - Path=/api/cuidadores/**
+                -
+            - id: ms-duenossss
+              uri: lb://MS-DUENOSSSS
+              predicates:
+                - Path=/api/duenos/**
+
+            - id: ms-historial-petpals
+              uri: lb://MS-HISTORIAL-PETPALS
+              predicates:
+                - Path=/api/historial/**
+
+            - id: petPal
+              uri: lb://PETPAL
+              predicates:
+                - Path=/api/mascotas/**
+
+            - id: ms-pago
+              uri: lb://MS-PAGO
+              predicates:
+                - Path=/api/pagos/**
+
+            - id: MicroServicioResenas
+              uri: lb://MICROSERVICIORESENAS
+              predicates:
+                - Path=/api/resenas/**
+
+            - id: ms-reservas
+              uri: lb://MS-RESERVAS
+              predicates:
+                - Path=/api/reservas/**
+
+            - id: servicios-mascotas
+              uri: lb://SERVICIOS-MASCOTAS
+              predicates:
+                - Path=/api/servicios/**
+
+            - id: MicroServicioUbicacion
+              uri: lb://MICROSERVICIOUBICACION
+              predicates:
+                - Path=/api/ubicaciones/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,gateway
+  endpoint:
+    gateway:
+      access: unrestricted

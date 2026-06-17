@@ -118,7 +118,6 @@ public class CuidadorService {
             existente.setCategoria(categoria);
             existente.setAnosExperincia(dto.getAnosExperincia());
             existente.setMascotasCuidadas(dto.getMascotasCuidadas());
-            existente.setCalificacion(null);
             return mapToDto(cuidadorRepository.save(existente));
         });
     }

@@ -1,8 +1,6 @@
 package cl.petpals.mscuidadores.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +19,10 @@ public class CuidadorRequestDto {
     @NotBlank(message = "Los apellidos no deben de ir vacios")
     private String apellidos;
 
-    @Positive(message = "El numero de telefono no debe estar en negativo")
-    @NotNull(message = "El numero de telefenofo no puede estar vacio")
-    private int telefono;
+    @NotNull(message = "El telefono no puede estar vacio")
+    @Min(value = 10000000L, message = "Telefono invalido")
+    @Max(value = 99999999999L, message = "Telefono invalido")
+    private Integer telefono;
 
     @NotBlank(message = "El correo no deberia de estar vacio")
     private String email;

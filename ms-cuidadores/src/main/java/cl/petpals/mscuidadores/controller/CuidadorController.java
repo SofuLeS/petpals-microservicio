@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class CuidadorController {
 
 
     @Operation(summary = "Listar todos los cuidadores",
-            description = "Mostrar todos los jugadores"
+            description = "Mostrar todos los cuidadores de mascotas"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente",

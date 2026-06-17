@@ -13,7 +13,7 @@ public class CuidadorResponseDto {
     private String rut;
     private String nombre;
     private String apellidos;
-    private int telefono;
+    private Integer telefono;
     private String email;
     private int edad;
     private String nombreCategoria;

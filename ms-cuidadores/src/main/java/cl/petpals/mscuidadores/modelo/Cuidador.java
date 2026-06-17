@@ -28,8 +28,8 @@ public class Cuidador {
     @Column(nullable = false, length = 150)
     private String apellidos;
 
-    @Column(nullable = false, length = 11, unique = true)
-    private int telefono;
+    @Column(unique = true)
+    private Integer telefono;
 
     @Column(nullable = false, length = 254, unique = true)
     private String email;

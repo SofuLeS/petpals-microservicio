@@ -21,7 +21,6 @@ public interface CuidadorRepository extends JpaRepository<Cuidador, Long> {
     //Aqui no se usa overr.. pq es una consulta no es algo que se tiene que reescrivir
     List<Cuidador> findByNombreContainingIgnoreCase(String nombre);
     List<Cuidador> findByApellidosContainingIgnoreCase(String apellidos);
-    List<Cuidador> findAllByOrderByApellidosAsc();
 
     //No ocupa variable pq el criterio dee busqueda ya esta explicito en en el nombre
     List<Cuidador> findByDisponibilidadTrue();

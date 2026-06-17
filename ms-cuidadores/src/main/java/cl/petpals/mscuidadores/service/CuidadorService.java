@@ -142,8 +142,4 @@ public class CuidadorService {
                 .map(this::mapToDto).collect(Collectors.toList());
     }
 
-    public List<CuidadorResponseDto> listarOrdenadosPorApellido() {
-        return cuidadorRepository.findAllByOrderByApellidosAsc()
-                .stream().map(this::mapToDto).collect(Collectors.toList());
-    }
 }

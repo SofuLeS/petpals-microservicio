@@ -33,7 +33,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException exception) {
         Map<String, String> error = new LinkedHashMap<>();
         error.put("error", exception.getMessage());
-        return ResponseEntity.status(404).body(error);
+        int status = exception.getMessage() != null && exception.getMessage().contains("no encontrada") ? 404 : 400;
+        return ResponseEntity.status(status).body(error);
     }
 
     //Tipo de dato incorrecto

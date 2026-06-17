@@ -24,7 +24,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex){
         Map<String, String> error = new LinkedHashMap<>();
         error.put("error", ex.getMessage());
-        return ResponseEntity.status(404).body(error);
+        int status = ex.getMessage() != null && ex.getMessage().contains("no existe") ? 404 : 400;
+        return ResponseEntity.status(status).body(error);
     }
 
     //Estado de pago o metodos de pago invalido

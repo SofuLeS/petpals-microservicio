@@ -5,6 +5,7 @@ import cl.petpals.ms_pago.modelo.MetodoPago;
 import cl.petpals.ms_pago.modelo.Pago;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PagoRepository extends JpaRepository<Pago, Long> {
@@ -13,5 +14,5 @@ public interface PagoRepository extends JpaRepository<Pago, Long> {
     List<Pago> findByIdDueno(Long idDueno);
     List<Pago> findByEstadoPago(EstadoPago estadoPago);
     List<Pago> findByMetodoPago(MetodoPago metodoPago);
-    List<Pago> findByMontoBetween(Double min, Double max);
+    List<Pago> findByMontoBetween(BigDecimal min, BigDecimal max);
 }

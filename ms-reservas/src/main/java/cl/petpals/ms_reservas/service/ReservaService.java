@@ -29,7 +29,6 @@ public class ReservaService {
     private String cuidadoresUrl;
 
 
-
     private CuidadorResponseDto obtenerCuidador(Long idCuidador){
         return webClientBuilder
                 .baseUrl(cuidadoresUrl)
@@ -123,7 +122,9 @@ public class ReservaService {
     }
 
     public List<ReservaResponseDto> listarPorFecha(LocalDate desde, LocalDate hasta) {
-        return reservaRepository.findByFechaReservaBetween(desde, hasta)
+        return reservaRepository.findByFechaReservaBetween(
+                        desde.atStartOfDay(),
+                        hasta.atTime(23, 59, 59))
                 .stream().map(this::mapToDto).collect(Collectors.toList());
     }
 

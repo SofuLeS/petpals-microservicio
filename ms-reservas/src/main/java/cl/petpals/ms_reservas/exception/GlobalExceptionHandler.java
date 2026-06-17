@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-//Mensaje nulo o que este en pasado
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException exception){
         Map<String, String> errores = new LinkedHashMap<>();
@@ -20,15 +20,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errores);
     }
 
-    //Cuidador no encontrado o ms-cuidadores no disponibles
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException exception){
         Map<String, String> error = new LinkedHashMap<>();
         error.put("error", exception.getMessage());
-        return ResponseEntity.status(404).body(error);
+        int status = exception.getMessage() != null && exception.getMessage().contains("no existe") ? 404 : 400;
+        return ResponseEntity.status(status).body(error);
     }
 
-    //Enviar un texto que no es en el enum
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException exception){
         Map<String, String> error = new LinkedHashMap<>();
@@ -38,7 +37,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(error);
     }
 
-    //Error generico
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGenericException(Exception exception){
         Map<String, String> error = new LinkedHashMap<>();
@@ -46,5 +44,4 @@ public class GlobalExceptionHandler {
         error.put("motivo", "Ocurrio un error inesperado en el servidor");
         return ResponseEntity.status(500).body(error);
     }
-
 }

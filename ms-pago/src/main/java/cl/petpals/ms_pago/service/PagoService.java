@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -116,7 +117,7 @@ public class PagoService {
     public PagoResponseDto cambiarMetodoPago(Long id, MetodoPago nuevoMetodo){
         Pago pago = pagoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pago con id " + id + " no existe"));
         if (pago.getEstadoPago() != EstadoPago.PENDIENTE){
-            throw new RuntimeException("Solo se puede cambiar el método de pago si el pago está en estado PENDIENTE. Estado actual: )" + pago.getEstadoPago());
+            throw new RuntimeException("Solo se puede cambiar el método de pago si el pago está en estado PENDIENTE. Estado actual: " + pago.getEstadoPago());
         }
         pago.setMetodoPago(nuevoMetodo);
         return mapToDto(pagoRepository.save(pago));
@@ -128,7 +129,7 @@ public class PagoService {
     }
 
     public List<PagoResponseDto> listarPorRangoMonto(Double min, Double max) {
-        return pagoRepository.findByMontoBetween(min, max)
+        return pagoRepository.findByMontoBetween(BigDecimal.valueOf(min), BigDecimal.valueOf(max))
                 .stream().map(this::mapToDto).collect(Collectors.toList());
     }
 }

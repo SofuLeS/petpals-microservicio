@@ -114,5 +114,5 @@ import static org.mockito.Mockito.*;
             assertTrue(excepcion.getMessage().contains("No se puede eliminar"));
             verify(mascotaRepository, never()).deleteById(anyLong());
         }
-    }
+
 }

@@ -23,7 +23,7 @@ public class ServiceCalendario {
         this.webClientBuilder = webClientBuilder;
     }
 
-    // CORREGIDO: Ahora acepta el RequestCalendarioDTO que viene desde el controlador
+    // Ahora acepta el RequestCalendarioDTO que viene desde el controlador
     public ResponseCalendarioDTO guardarCalendario(RequestCalendarioDTO dto) {
         ModelCalendario nuevoCalendario = new ModelCalendario();
         nuevoCalendario.setIdCuidador(dto.getIdCuidador());

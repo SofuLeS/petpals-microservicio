@@ -34,7 +34,7 @@ public class DataInitializer implements CommandLineRunner {
             dueno.setRol(Rol.DUENO);
             usuarioRepository.save(dueno);
 
-            log.info("✅ Usuarios iniciales creados: admin@petpals.cl / dueno@petpals.cl");
+            log.info("Usuarios iniciales creados: admin@petpals.cl / dueno@petpals.cl");
         }
     }
 }

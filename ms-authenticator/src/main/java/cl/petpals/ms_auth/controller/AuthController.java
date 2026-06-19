@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
-
+//N
     @Operation(summary = "Registrar nuevo usuario", description = "Crea un usuario nuevo y retorna un JWT")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Usuario registrado exitosamente"),
